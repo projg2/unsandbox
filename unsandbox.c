@@ -15,7 +15,11 @@ int main(int argc, char* argv[])
 	void* libc;
 	int (*execvp_func)(const char *, char *const[]);
 
-	assert(argv[1]);
+	if (argc < 2)
+	{
+		printf("Usage: %s <program> [<args>...]\n", argv[0]);
+		return EXIT_FAILURE;
+	}
 
 	unsetenv("LD_PRELOAD");
 	libc = dlopen("libc.so.6", RTLD_NOW);
